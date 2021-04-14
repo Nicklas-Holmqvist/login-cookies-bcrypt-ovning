@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieSession = require('cookie-session')
 const app = express()
 const port = 3000
 
@@ -9,6 +10,14 @@ const users = [{
 }]
 
 app.use(express.json());
+
+app.use(cookieSession({
+    name: 'session',
+    secret: 'aVeryS3cr3tK3y',
+    secure: false,
+    maxAge: 1000*10,
+    httpOnly: true
+}))
 
 // skapa användaren
 app.post('/api/register', (req, res) => {
